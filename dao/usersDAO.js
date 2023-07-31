@@ -1,5 +1,5 @@
-import mongodb from 'mongodb'
-const ObjectId = mongodb.ObjectId
+import mongodb from 'mongodb';
+const ObjectId = mongodb.ObjectId;
 
 let users;
 
@@ -10,17 +10,17 @@ export default class UsersDAO {
         try {
             users = await connection
                 .db(process.env.NETDEX_COLLECTION)
-                .collection('users')
-        } catch(e) {
-            console.error(`Unable to connect to UsersDAO: ${e}`)
+                .collection('users');
+        } catch (e) {
+            console.error(`Unable to connect to UsersDAO: ${e}`);
         }
     }
 
     static async getUserInfo(id) {
         try {
-            return await users.find({$match: {_id: new ObjectId(id)}})
-        } catch(e) {
-            console.error(`Unable to get user info: ${e}`)
+            return await users.find({ $match: { _id: new ObjectId(id) } });
+        } catch (e) {
+            console.error(`Unable to get user info: ${e}`);
             throw e;
         }
     }
