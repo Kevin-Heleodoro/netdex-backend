@@ -35,6 +35,24 @@ export default class ContactsController {
                 });
             }
         } catch (e) {
+            console.log(`Contacts Controller: ${e}`);
+            res.status(500).json({ error: e });
+        }
+    }
+
+    static async apiGetOneContact(req, res, next) {
+        try {
+            let id = req.params.id || {};
+            console.log({ id });
+            let contact = await ContactsDAO.getContact(id);
+            console.log({ contact });
+            if (!contact) {
+                res.status(404).json({ error: 'contact not found' });
+            }
+
+            res.json(contact);
+        } catch (e) {
+            console.log(`Contacts Controller: ${e}`);
             res.status(500).json({ error: e });
         }
     }

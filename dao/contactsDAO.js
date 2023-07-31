@@ -29,4 +29,15 @@ export default class ContactsDAO {
             return { error: e };
         }
     }
+
+    static async getContact(id) {
+        try {
+            const contact = await contacts.findOne({ _id: new ObjectId(id) });
+
+            return contact;
+        } catch (e) {
+            console.error(`Unable to get contact by ID: ${e}`);
+            throw e;
+        }
+    }
 }
