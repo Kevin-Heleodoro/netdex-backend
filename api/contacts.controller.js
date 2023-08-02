@@ -43,14 +43,51 @@ export default class ContactsController {
     static async apiGetOneContact(req, res, next) {
         try {
             let id = req.params.id || {};
-            console.log({ id });
             let contact = await ContactsDAO.getContact(id);
-            console.log({ contact });
+
             if (!contact) {
                 res.status(404).json({ error: 'contact not found' });
             }
 
             res.json(contact);
+        } catch (e) {
+            console.log(`Contacts Controller: ${e}`);
+            res.status(500).json({ error: e });
+        }
+    }
+
+    static async apiUpdateContact(req, res, next) {
+        try {
+            let id = req.params.id;
+            const updatedContact = {
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email,
+                social: {
+                    linkedin: req.body.linkedin,
+                },
+                notes: [
+                    {
+                        date: new Date(),
+                        note: req.body.note,
+                    },
+                ],
+                company: req.body.company,
+                position: req.body.position,
+            };
+
+            let response = await ContactsDAO.updateContact(id, updatedContact);
+
+            var { error } = response;
+
+            if (error) {
+                res.status(500).json({ error: 'unable to update contact' });
+            } else {
+                res.json({
+                    status: 'success',
+                    response,
+                });
+            }
         } catch (e) {
             console.log(`Contacts Controller: ${e}`);
             res.status(500).json({ error: e });

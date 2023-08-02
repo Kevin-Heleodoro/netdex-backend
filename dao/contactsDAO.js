@@ -40,4 +40,8 @@ export default class ContactsDAO {
             throw e;
         }
     }
+
+    // edit contact
+
+    // delete contact
 }

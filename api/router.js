@@ -8,5 +8,6 @@ router.route('/users/:id').get(UsersController.apiGetUserInfo);
 
 router.route('/contacts/').post(ContactsController.apiPostContact);
 router.route('/contacts/:id').get(ContactsController.apiGetOneContact);
+router.route('/contacts/:id').put(ContactsController.apiUpdateContact);
 
 export default router;

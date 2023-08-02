@@ -18,10 +18,26 @@ export default class UsersDAO {
 
     static async getUserInfo(id) {
         try {
-            return await users.find({ $match: { _id: new ObjectId(id) } });
+            return await users
+                .aggregate([
+                    { $match: { _id: new ObjectId(id) } },
+                    {
+                        $lookup: {
+                            from: 'contacts',
+                            localField: '_id',
+                            foreignField: 'user_id',
+                            as: 'contacts',
+                        },
+                    },
+                ])
+                .next();
         } catch (e) {
             console.error(`Unable to get user info: ${e}`);
             throw e;
         }
     }
+
+    // add new user
+
+    // update user
 }
