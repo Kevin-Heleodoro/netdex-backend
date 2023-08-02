@@ -5,6 +5,7 @@ import ContactsController from './contacts.controller.js';
 const router = express.Router();
 
 router.route('/users/:id').get(UsersController.apiGetUserInfo);
+router.route('/users/new').post(UsersController.apiCreateUser);
 
 router.route('/contacts/').post(ContactsController.apiPostContact);
 router.route('/contacts/:id').get(ContactsController.apiGetOneContact);

@@ -33,11 +33,23 @@ export default class UsersDAO {
             // .next();
         } catch (e) {
             console.error(`Unable to get user info: ${e}`);
-            throw e;
+            return { error: e };
         }
     }
 
-    // add new user
+    static async createNewUser(user, googleId) {
+        try {
+            const newUser = {
+                ...user,
+                _id: googleId,
+            };
+
+            return await users.insertOne(newUser);
+        } catch (e) {
+            console.error(`Unable to create user: ${e}`);
+            return { error: e };
+        }
+    }
 
     // update user
 }
