@@ -56,6 +56,22 @@ export default class ContactsController {
         }
     }
 
+    static async apiGetAllContacts(req, res, next) {
+        try {
+            let id = req.params.userId || {};
+            let contacts = await ContactsDAO.getAllContacts(id);
+
+            if (!contacts) {
+                res.status(404).json({ error: 'contacts not found' });
+            }
+
+            res.json(contacts);
+        } catch (e) {
+            console.log(`Contacts Controller: ${e}`);
+            res.status(500).json({ error: e });
+        }
+    }
+
     static async apiUpdateContact(req, res, next) {
         try {
             let id = req.params.id;
@@ -66,12 +82,6 @@ export default class ContactsController {
                 social: {
                     linkedin: req.body.linkedin,
                 },
-                notes: [
-                    {
-                        date: new Date(),
-                        note: req.body.note,
-                    },
-                ],
                 company: req.body.company,
                 position: req.body.position,
             };
@@ -82,6 +92,31 @@ export default class ContactsController {
 
             if (error) {
                 res.status(500).json({ error: 'unable to update contact' });
+            } else {
+                res.json({
+                    status: 'success',
+                    response,
+                });
+            }
+        } catch (e) {
+            console.log(`Contacts Controller: ${e}`);
+            res.status(500).json({ error: e });
+        }
+    }
+
+    static async apiPostNewNote(req, res, next) {
+        try {
+            let id = req.params.id;
+            let newNote = req.body.note;
+
+            let response = await ContactsDAO.addNoteToContact(id, newNote);
+
+            var { error } = response;
+
+            if (error) {
+                res.status(500).json({
+                    error: 'Unable to add note to contact',
+                });
             } else {
                 res.json({
                     status: 'success',
