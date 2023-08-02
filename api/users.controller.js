@@ -3,7 +3,7 @@ import UsersDAO from '../dao/usersDAO.js';
 export default class UsersController {
     static async apiGetUserInfo(req, res, next) {
         try {
-            let id = req.params.userId;
+            let id = req.params.id;
             let userInfo = await UsersDAO.getUserInfo(id);
 
             if (!userInfo) {
@@ -40,6 +40,29 @@ export default class UsersController {
             }
         } catch (e) {
             console.error(`Failed to create new user: ${e}`);
+            res.status(500).json({ error: e });
+        }
+    }
+
+    static async apiUpdateUser(req, res, next) {
+        try {
+            let { id } = req.params;
+            let updatedUser = { ...req.body };
+
+            const response = await UsersDAO.updateUser(id, updatedUser);
+
+            var { error } = response;
+
+            if (error) {
+                res.status(500).json({ error: `Unable to update user: ${e}` });
+            } else {
+                res.json({
+                    status: 'success',
+                    response,
+                });
+            }
+        } catch (e) {
+            console.error(`Failed to update user: ${e}`);
             res.status(500).json({ error: e });
         }
     }

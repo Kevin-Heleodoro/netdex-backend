@@ -18,7 +18,7 @@ export default class UsersDAO {
 
     static async getUserInfo(id) {
         try {
-            return await users.findOne({ _id: new ObjectId(id) });
+            return await users.findOne({ _id: id });
             // .aggregate([
             //     { $match: { _id: new ObjectId(id) } },
             //     {
@@ -51,5 +51,19 @@ export default class UsersDAO {
         }
     }
 
-    // update user
+    static async updateUser(id, user) {
+        try {
+            const filter = { _id: id };
+            const updates = {
+                $set: {
+                    ...user,
+                },
+            };
+
+            return await users.updateOne(filter, updates);
+        } catch (e) {
+            console.error(`Unable to update user: ${e}`);
+            return { error: e };
+        }
+    }
 }

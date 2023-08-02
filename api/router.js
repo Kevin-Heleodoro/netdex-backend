@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.route('/users/:id').get(UsersController.apiGetUserInfo);
 router.route('/users/new').post(UsersController.apiCreateUser);
+router.route('/users/update/:id').put(UsersController.apiUpdateUser);
 
 router.route('/contacts/').post(ContactsController.apiPostContact);
 router.route('/contacts/:id').get(ContactsController.apiGetOneContact);
