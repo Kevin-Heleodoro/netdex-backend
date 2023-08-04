@@ -20,7 +20,7 @@
     <a href="https://github.khoury.northeastern.edu/NEU-CS5610-SU23/NetDex-backend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <!-- <a href="https://movietime-backend-heleo.uw.r.appspot.com/api/v1/movies">View Demo: Get all movies</a> -->
+    <a href="https://netdex-backend.ue.r.appspot.com/api/v1/contacts/all/115457154900493313450">View Demo: Get all movies</a>
     ·
     <a href="https://github.khoury.northeastern.edu/NEU-CS5610-SU23/NetDex-backend/issues">Report Bug</a>
     ·
