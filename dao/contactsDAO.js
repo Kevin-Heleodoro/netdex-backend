@@ -106,5 +106,20 @@ export default class ContactsDAO {
         }
     }
 
-    // delete contact
+    static async deleteContact(id) {
+        try {
+            const filter = { _id: new ObjectId(id) };
+
+            const result = await contacts.deleteOne(filter);
+
+            if (result.deletedCount === 0) {
+                throw Error(`Invalid contact delete operation`);
+            }
+
+            return result;
+        } catch (e) {
+            console.error(`Unable to delete contact: ${e}`);
+            return { error: e };
+        }
+    }
 }

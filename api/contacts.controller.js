@@ -42,7 +42,7 @@ export default class ContactsController {
 
     static async apiGetOneContact(req, res, next) {
         try {
-            let id = req.params.id || {};
+            let { id } = req.params || {};
             let contact = await ContactsDAO.getContact(id);
 
             if (!contact) {
@@ -74,7 +74,7 @@ export default class ContactsController {
 
     static async apiUpdateContact(req, res, next) {
         try {
-            let id = req.params.id;
+            let { id } = req.params;
             const updatedContact = {
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
@@ -106,7 +106,7 @@ export default class ContactsController {
 
     static async apiPostNewNote(req, res, next) {
         try {
-            let id = req.params.id;
+            let { id } = req.params;
             let newNote = req.body.note;
 
             let response = await ContactsDAO.addNoteToContact(id, newNote);
@@ -117,6 +117,28 @@ export default class ContactsController {
                 res.status(500).json({
                     error: 'Unable to add note to contact',
                 });
+            } else {
+                res.json({
+                    status: 'success',
+                    response,
+                });
+            }
+        } catch (e) {
+            console.log(`Contacts Controller: ${e}`);
+            res.status(500).json({ error: e });
+        }
+    }
+
+    static async apiDeleteContact(req, res, next) {
+        try {
+            let { id } = req.params;
+
+            let response = await ContactsDAO.deleteContact(id);
+
+            var { error } = response;
+
+            if (error) {
+                res.status(500).json({ error: 'Unable to delete contact' });
             } else {
                 res.json({
                     status: 'success',
