@@ -47,9 +47,9 @@ export default class ContactsController {
 
             if (!contact) {
                 res.status(404).json({ error: 'contact not found' });
+            } else {
+                res.json(contact);
             }
-
-            res.json(contact);
         } catch (e) {
             console.log(`Contacts Controller: ${e}`);
             res.status(500).json({ error: e });
@@ -63,9 +63,9 @@ export default class ContactsController {
 
             if (!contacts) {
                 res.status(404).json({ error: 'contacts not found' });
+            } else {
+                res.json(contacts);
             }
-
-            res.json(contacts);
         } catch (e) {
             console.log(`Contacts Controller: ${e}`);
             res.status(500).json({ error: e });

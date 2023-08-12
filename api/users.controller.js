@@ -8,9 +8,10 @@ export default class UsersController {
 
             if (!userInfo) {
                 res.status(404).json({ error: 'user not found' });
+                return;
+            } else {
+                res.json(userInfo);
             }
-
-            res.json(userInfo);
         } catch (e) {
             console.error(`Failed to get user info: ${e}`);
             res.status(500).json({ error: e });

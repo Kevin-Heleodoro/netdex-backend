@@ -18,19 +18,9 @@ export default class UsersDAO {
 
     static async getUserInfo(id) {
         try {
-            return await users.findOne({ _id: id });
-            // .aggregate([
-            //     { $match: { _id: new ObjectId(id) } },
-            //     {
-            //         $lookup: {
-            //             from: 'contacts',
-            //             localField: '_id',
-            //             foreignField: 'user_id',
-            //             as: 'contacts',
-            //         },
-            //     },
-            // ])
-            // .next();
+            const response = await users.findOne({ _id: id });
+
+            return response;
         } catch (e) {
             console.error(`Unable to get user info: ${e}`);
             return { error: e };

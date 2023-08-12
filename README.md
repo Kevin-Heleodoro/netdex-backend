@@ -145,6 +145,11 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     -   Add a Note to a Contact
     -   Delete a Contact
 
+### Release 3
+
+-   Error handling in get user info route for users that are not in the system.
+    -   Flawed logic within controllers where headers were being set multiple times within a sequence. Fixed the issue by explicitly declaring if..else conditions.
+
 See the [open issues](https://github.khoury.northeastern.edu/NEU-CS5610-SU23/NetDex-backend/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
